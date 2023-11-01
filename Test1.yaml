@@ -1,0 +1,4 @@
+- name: Hello World Sample
+  hosts: all
+  tasks:
+    - name: 
