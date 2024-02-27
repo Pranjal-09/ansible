@@ -1,0 +1,20 @@
+---
+- name: configure LVM
+  hosts: localhost
+  vars:
+    STORAGE:
+     - name: appvg
+       disks:
+         - vde1
+       volumes:
+         - name: appslv
+           size: "1 GiB"
+           mount_point: "/opt/mqm"
+           fs_type: xfs
+           state: 'present'
+  tasks:
+   - name: configure file systems
+     ansible.builtin.include_role:
+        name: rhel-system-roles.storage
+     vars:
+        storage_pools: "{{ STORAGE }}"
