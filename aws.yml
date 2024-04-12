@@ -1,0 +1,8 @@
+---
+- hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: debug
+      debug:
+        msg: "{{ ansible_password }}"
