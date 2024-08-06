@@ -1,0 +1,25 @@
+---
+- name: Nexus Automatic Deployment from JFrog - File watchdog
+  hosts: localhost
+  sources:
+    - name: Monitor JFrog folder for any changes or files deployed - watchdog
+      ansible.eda.file_watch:
+        path: "/tmp_aap_ansible/dev"
+        recursive: true
+        ignore_regexes: ['.*\.pytest.*', '.*__pycache__.*', '.*/.git.*']
+  rules:
+    - name: Run Job template when Diretory Modified
+      condition: event.type == "DirModifiedEvent"
+      action:
+        run_job_template:
+          name: Nexus_LoginNexusApp
+          organization: IDQ_Nexus
+          post_events: true
+
+    - name: Run Job template when File Modified
+      condition: event.type == "FileModifiedEvent"
+      action:
+        run_job_template:
+          name: Nexus_LoginNexusApp
+          organization: IDQ_Nexus
+          post_events: true
