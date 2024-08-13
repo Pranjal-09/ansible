@@ -1,0 +1,20 @@
+---
+- name: Fetch data from Ansible Tower
+  hosts: localhost
+  gather_facts: true
+  #  become_method: su
+  #become_user: awx
+  tasks:
+    - name: Call the Ansible Tower API
+      uri:
+        url: http://10.74.230.181/api/v2/organizations
+        timeout: 90
+        method: GET
+        user: admin
+        password: redhat
+        force_basic_auth: true
+        return_content: yes
+        headers:
+          Content-Type: application/json
+        validate_certs: false
+      register: response
