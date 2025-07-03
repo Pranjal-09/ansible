@@ -1,11 +1,16 @@
-- hosts: localhost
+---
+- name: Verify IBMCLOUD_API_KEY injection
+  hosts: localhost
   gather_facts: false
-  tasks:
-    - name: Confirm key
-      debug:
-        msg: "Key is: {{ lookup('env', 'IBMCLOUD_API_KEY') }}"
 
-    - name: Run script
-      command: python3 login.py
-      environment:
-        ibmcloud_api_key: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
+  tasks:
+    - name: Show via lookup
+      debug:
+        msg: "IBMCLOUD_API_KEY = {{ lookup('env', 'IBMCLOUD_API_KEY') }}"
+
+    - name: Show via shell
+      shell: echo $IBMCLOUD_API_KEY
+      register: key_env
+
+    - debug:
+        var: key_env.stdout
