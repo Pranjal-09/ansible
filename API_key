@@ -1,22 +1,11 @@
-- name: Listing Unattached Volume In IBM Cloud
-  hosts: localhost
+- hosts: localhost
   gather_facts: false
-
-  tasks: 
-    - name: Show key
-      ansible.builtin.debug:
-        msg: "api is: {{ IBMCLOUD_API_KEY }}"
-
-    - name: Create temp directory
-      ansible.builtin.file:
-           path: /tmp/csv
-           state: directory
-           mode: '0755'
-
-    - name: List Unattached Volumes
-      command: python3 find-unattached-volume.py
-      register: script_output
-
-    - name: Job output
+  tasks:
+    - name: Confirm key
       debug:
-         msg: "{{ script_output.stdout }}"
+        msg: "Key is: {{ lookup('env', 'IBMCLOUD_API_KEY') }}"
+
+    - name: Run script
+      command: python3 login.py
+      environment:
+        ibmcloud_api_key: "{{ lookup('env', 'IBMCLOUD_API_KEY') }}"
