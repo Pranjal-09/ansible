@@ -5,15 +5,12 @@
   become: true  # Required for package manager access
 
   tasks:
-
     - name: Gather full package facts
       ansible.builtin.package_facts:
         manager: auto  # Automatically detects apt, rpm, pacman, etc.
-
     - name: Display total number of installed packages
       ansible.builtin.debug:
         msg: "Host {{ inventory_hostname }} has {{ ansible_facts.packages | length }} packages installed."
-
     - name: Display entire package_facts structure (WARNING: Very large)
       ansible.builtin.debug:
         var: ansible_facts.packages
