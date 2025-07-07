@@ -1,0 +1,20 @@
+---
+- name: Full test of ansible.builtin.package_facts
+  hosts: all
+  gather_facts: false
+  become: true  # Required for accessing package managers like rpm or apt
+
+  tasks:
+
+    - name: Gather full package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Show total number of installed packages
+      ansible.builtin.debug:
+        msg: >
+          Host {{ inventory_hostname }} has {{ ansible_facts.packages | length }} packages installed.
+
+    - name: Dump full package facts (VERY LARGE OUTPUT)
+      ansible.builtin.debug:
+        var: ansible_facts.packages
