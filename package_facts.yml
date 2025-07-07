@@ -2,7 +2,6 @@
 - name: Full test of ansible.builtin.package_facts
   hosts: all
   gather_facts: false
-  become: true  # Required for accessing package managers like rpm or apt
 
   tasks:
 
