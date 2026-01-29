@@ -4,7 +4,7 @@
   become: true
   vars:
     # Forces Ansible to use the system's platform python on RHEL
-    ansible_python_interpreter: /usr/bin/python3.9
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
     - name: Install tcsh and glibc on RHEL 8+ or Rocky Linux
       ansible.builtin.dnf:
