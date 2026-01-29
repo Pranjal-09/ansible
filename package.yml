@@ -1,0 +1,11 @@
+---
+- name: Configure Shell Environment
+  hosts: all
+  become: true
+  tasks:
+    - name: Install tcsh and glibc on RHEL 8+ or Rocky Linux
+      ansible.builtin.dnf:
+        name:
+          - glibc.i686
+          - tcsh
+        state: present
