@@ -1,0 +1,19 @@
+---
+- name: Testing Job Tags in AAP 2.6
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: This is the 'network' task
+      ansible.builtin.debug:
+        msg: "Running NETWORK configuration tasks."
+      tags: network
+
+    - name: This is the 'database' task
+      ansible.builtin.debug:
+        msg: "Running DATABASE configuration tasks."
+      tags: database
+
+    - name: This task always runs (using special 'always' tag)
+      ansible.builtin.debug:
+        msg: "I run regardless of which tag you choose!"
+      tags: always
